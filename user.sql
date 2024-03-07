@@ -1,6 +1,7 @@
 create database botox;
 use botox;
 
+# 유저
 drop table user;
 CREATE TABLE user (
     user_id VARCHAR(20) PRIMARY KEY NOT NULL,
@@ -13,6 +14,7 @@ CREATE TABLE user (
     CONSTRAINT chk_carrot_temp CHECK (user_carrot_temperature IN ('cool', 'warm', 'hot'))
 );
 
+# 친구
 drop table friend;
 CREATE TABLE friend (
     user_id VARCHAR(20) REFERENCES user(user_id),
@@ -21,7 +23,7 @@ CREATE TABLE friend (
     friend_connection BOOLEAN,
     foreign key (user_id) references user(user_id)
 );
-
+# 방
 drop table room;
 CREATE TABLE room (
     room_num INT PRIMARY KEY NOT NULL,
@@ -37,12 +39,14 @@ CREATE TABLE room (
     CONSTRAINT chk_room_type CHECK (room_type IN ('chat', 'voice'))
 );
 
+# 게임
 drop table game;
 CREATE TABLE game (
     game_name VARCHAR(20) PRIMARY KEY,
     game_user_count INT
 );
 
+# 신고
 drop table report;
 CREATE TABLE report (
     report_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -59,6 +63,7 @@ CREATE TABLE report (
 );
 
 
+#  게시글
 drop table post;
 CREATE TABLE post (
     post_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -73,9 +78,9 @@ CREATE TABLE post (
     foreign key (user_id) references user(user_id)
 
 );
-
-drop table comment;
-CREATE TABLE comment (
+# 댓글
+drop table botox.comment;
+CREATE TABLE botox.comment (
     comment_id INT AUTO_INCREMENT PRIMARY KEY,
     post_id INT REFERENCES post(post_id),
     author_id VARCHAR(20) REFERENCES user(user_id),
@@ -84,3 +89,5 @@ CREATE TABLE comment (
     foreign key (post_id) references post(post_id)
 
 );
+select * from comment;
+select * from post;
